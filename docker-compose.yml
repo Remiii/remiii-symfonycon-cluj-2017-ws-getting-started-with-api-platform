@@ -1,0 +1,51 @@
+version: '2'
+
+
+services:
+    front:
+        image: nginx
+        ports:
+            - "80:80"
+        links:
+            - "engine:engine"
+        volumes_from:
+            - "engine:ro"
+        volumes:
+            - "./docker/front/default.conf:/etc/nginx/conf.d/default.conf:ro"
+
+
+    engine:
+        build: ./docker/engine/
+        volumes:
+            - ".:/home/docker:rw"
+            - "./docker/engine/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro"
+        links:
+            - "db:db"
+            - "mailhog:mailhog"
+        working_dir: "/home/docker"
+
+
+    db:
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        environment:
+            - "MYSQL_ROOT_PASSWORD=querty"
+            - "MYSQL_USER=querty"
+            - "MYSQL_PASSWORD=querty"
+            - "MYSQL_DATABASE=querty"
+
+
+    phpmyadmin:
+        image: "phpmyadmin/phpmyadmin:4.6.6-2"
+        ports:
+            - "8080:80"
+        links:
+            - db
+
+
+    mailhog:
+        build: docker/mailhog
+        ports:
+            - 8025:8025
+

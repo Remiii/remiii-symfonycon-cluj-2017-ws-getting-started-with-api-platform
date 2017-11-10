@@ -1,0 +1,20 @@
+version: "2"
+
+services:
+    engine:
+        volumes:
+            - remiii-symfonycon-cluj-2017-ws-getting-started-with-api-platform_rsync-sync:/home/docker:rw # will be mounted on /var/www
+            - remiii-symfonycon-cluj-2017-ws-getting-started-with-api-platform_app-cache:/home/docker/app/cache
+            - remiii-symfonycon-cluj-2017-ws-getting-started-with-api-platform_app-logs:/home/docker/app/logs
+            - remiii-symfonycon-cluj-2017-ws-getting-started-with-api-platform_vendor:/home/docker/vendor
+    db:
+        volumes:
+            - remiii-symfonycon-cluj-2017-ws-getting-started-with-api-platform_var-lib-mysql:/var/lib/mysql
+
+volumes:
+    remiii-symfonycon-cluj-2017-ws-getting-started-with-api-platform_rsync-sync:
+        external: true
+    remiii-symfonycon-cluj-2017-ws-getting-started-with-api-platform_app-cache:
+    remiii-symfonycon-cluj-2017-ws-getting-started-with-api-platform_app-logs:
+    remiii-symfonycon-cluj-2017-ws-getting-started-with-api-platform_vendor:
+    remiii-symfonycon-cluj-2017-ws-getting-started-with-api-platform_var-lib-mysql:
